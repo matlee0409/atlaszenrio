@@ -20,6 +20,37 @@ function verifyZernioSignature(
   );
 }
 
+function verifyAtlasAuth(req: Request): { ok: boolean; error?: string } {
+  const apiKey = process.env.POLL_API_KEY;
+  const agentId = process.env.ATLAS_AGENT_ID;
+
+  const providedKey = req.headers["x-api-key"] as string | undefined;
+  const providedAgentId = req.headers["x-atlas-agent-id"] as string | undefined;
+
+  if (apiKey) {
+    if (!providedKey) {
+      return { ok: false, error: "Missing x-api-key" };
+    }
+    if (!providedKey.startsWith("atlas_")) {
+      return { ok: false, error: "Invalid key format — must start with atlas_" };
+    }
+    if (providedKey !== apiKey) {
+      return { ok: false, error: "Unauthorized" };
+    }
+  }
+
+  if (agentId) {
+    if (!providedAgentId) {
+      return { ok: false, error: "Missing x-atlas-agent-id" };
+    }
+    if (providedAgentId !== agentId) {
+      return { ok: false, error: "Unknown agent" };
+    }
+  }
+
+  return { ok: true };
+}
+
 router.post("/webhooks/zernio", async (req: Request, res: Response) => {
   const secret = process.env.ZERNIO_WEBHOOK_SECRET;
   const rawBody = JSON.stringify(req.body);
@@ -52,11 +83,9 @@ router.post("/webhooks/zernio", async (req: Request, res: Response) => {
 });
 
 router.get("/webhooks/poll", async (req: Request, res: Response) => {
-  const apiKey = process.env.POLL_API_KEY;
-  const provided = req.headers["x-api-key"] as string | undefined;
-
-  if (apiKey && provided !== apiKey) {
-    res.status(401).json({ error: "Unauthorized" });
+  const auth = verifyAtlasAuth(req);
+  if (!auth.ok) {
+    res.status(401).json({ error: auth.error });
     return;
   }
 
@@ -81,11 +110,9 @@ router.get("/webhooks/poll", async (req: Request, res: Response) => {
 });
 
 router.post("/webhooks/reply/:id", async (req: Request, res: Response) => {
-  const apiKey = process.env.POLL_API_KEY;
-  const provided = req.headers["x-api-key"] as string | undefined;
-
-  if (apiKey && provided !== apiKey) {
-    res.status(401).json({ error: "Unauthorized" });
+  const auth = verifyAtlasAuth(req);
+  if (!auth.ok) {
+    res.status(401).json({ error: auth.error });
     return;
   }
 
