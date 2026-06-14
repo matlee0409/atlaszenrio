@@ -5,19 +5,33 @@
  * Runs on your local PC. Polls the Railway webhook queue, sends each payload
  * to your local Atlas agent, then posts the reply back to Railway.
  *
- * Usage:
- *   RAILWAY_URL=https://your-app.railway.app \
- *   POLL_API_KEY=your-secret-key \
- *   ATLAS_URL=http://localhost:8644 \
- *   pnpm --filter @workspace/scripts run atlas-poller
- *
- * Environment variables:
- *   RAILWAY_URL      - Base URL of your Railway-deployed app (no trailing slash)
- *   POLL_API_KEY     - Secret key set on Railway to protect the /poll endpoint
- *   ATLAS_URL        - Local Atlas gateway URL (default: http://localhost:8644)
- *   POLL_INTERVAL_MS - How often to poll in ms (default: 3000)
- *   ATLAS_ROUTE      - Atlas webhook route name (default: zernio)
+ * Quickstart:
+ *   cp scripts/atlas.env.example scripts/atlas.env
+ *   (fill in atlas.env)
+ *   ./scripts/start-atlas.sh
  */
+
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+// Auto-load atlas.env from the scripts directory if it exists
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const envFile = path.resolve(__dirname, "../../atlas.env");
+if (fs.existsSync(envFile)) {
+  const lines = fs.readFileSync(envFile, "utf8").split("\n");
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const eqIdx = trimmed.indexOf("=");
+    if (eqIdx === -1) continue;
+    const key = trimmed.slice(0, eqIdx).trim();
+    const val = trimmed.slice(eqIdx + 1).trim();
+    if (key && !(key in process.env)) {
+      process.env[key] = val;
+    }
+  }
+}
 
 const RAILWAY_URL = process.env.RAILWAY_URL?.replace(/\/$/, "");
 const POLL_API_KEY = process.env.POLL_API_KEY;

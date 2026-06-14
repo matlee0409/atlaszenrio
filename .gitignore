@@ -47,3 +47,6 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# Atlas local config (contains secrets — never commit this)
+scripts/atlas.env
