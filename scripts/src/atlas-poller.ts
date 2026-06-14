@@ -1,33 +1,29 @@
 #!/usr/bin/env node
 /**
- * Hermes Local Poller
+ * Atlas Local Poller
  *
  * Runs on your local PC. Polls the Railway webhook queue, sends each payload
- * to your local Hermes agent, then posts the reply back to Railway.
+ * to your local Atlas agent, then posts the reply back to Railway.
  *
  * Usage:
  *   RAILWAY_URL=https://your-app.railway.app \
  *   POLL_API_KEY=your-secret-key \
- *   HERMES_URL=http://localhost:8644 \
- *   npx ts-node scripts/src/hermes-poller.ts
- *
- * Or compile first and run with node:
- *   npx tsc --project scripts/tsconfig.json
- *   node scripts/dist/hermes-poller.js
+ *   ATLAS_URL=http://localhost:8644 \
+ *   pnpm --filter @workspace/scripts run atlas-poller
  *
  * Environment variables:
  *   RAILWAY_URL      - Base URL of your Railway-deployed app (no trailing slash)
  *   POLL_API_KEY     - Secret key set on Railway to protect the /poll endpoint
- *   HERMES_URL       - Local Hermes gateway URL (default: http://localhost:8644)
+ *   ATLAS_URL        - Local Atlas gateway URL (default: http://localhost:8644)
  *   POLL_INTERVAL_MS - How often to poll in ms (default: 3000)
- *   HERMES_ROUTE     - Hermes webhook route name (default: zernio)
+ *   ATLAS_ROUTE      - Atlas webhook route name (default: zernio)
  */
 
 const RAILWAY_URL = process.env.RAILWAY_URL?.replace(/\/$/, "");
 const POLL_API_KEY = process.env.POLL_API_KEY;
-const HERMES_URL = (process.env.HERMES_URL ?? "http://localhost:8644").replace(/\/$/, "");
+const ATLAS_URL = (process.env.ATLAS_URL ?? "http://localhost:8644").replace(/\/$/, "");
 const POLL_INTERVAL_MS = Number(process.env.POLL_INTERVAL_MS ?? 3000);
-const HERMES_ROUTE = process.env.HERMES_ROUTE ?? "zernio";
+const ATLAS_ROUTE = process.env.ATLAS_ROUTE ?? "zernio";
 
 if (!RAILWAY_URL) {
   console.error("❌  RAILWAY_URL is required. Set it to your Railway app URL.");
@@ -79,14 +75,14 @@ async function pollOnce(): Promise<void> {
 async function processItem(item: WebhookItem): Promise<void> {
   console.log(`  → processing id=${item.id}`);
 
-  let hermesReply: string | null = null;
+  let atlasReply: string | null = null;
   let finalStatus: "replied" | "failed" = "replied";
 
   try {
     const payload = JSON.parse(item.payload) as Record<string, unknown>;
 
-    const hermesRes = await fetch(
-      `${HERMES_URL}/webhooks/${HERMES_ROUTE}`,
+    const atlasRes = await fetch(
+      `${ATLAS_URL}/webhooks/${ATLAS_ROUTE}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -94,16 +90,16 @@ async function processItem(item: WebhookItem): Promise<void> {
       },
     );
 
-    if (!hermesRes.ok) {
-      console.warn(`    hermes returned HTTP ${hermesRes.status} for id=${item.id}`);
+    if (!atlasRes.ok) {
+      console.warn(`    atlas returned HTTP ${atlasRes.status} for id=${item.id}`);
       finalStatus = "failed";
     } else {
-      const body = await hermesRes.text();
-      hermesReply = body;
-      console.log(`    ✅ hermes replied for id=${item.id}`);
+      const body = await atlasRes.text();
+      atlasReply = body;
+      console.log(`    ✅ atlas replied for id=${item.id}`);
     }
   } catch (err) {
-    console.error(`    ❌ hermes call failed for id=${item.id}:`, (err as Error).message);
+    console.error(`    ❌ atlas call failed for id=${item.id}:`, (err as Error).message);
     finalStatus = "failed";
   }
 
@@ -111,7 +107,7 @@ async function processItem(item: WebhookItem): Promise<void> {
     const replyRes = await fetch(`${RAILWAY_URL}/api/webhooks/reply/${item.id}`, {
       method: "POST",
       headers,
-      body: JSON.stringify({ reply: hermesReply, status: finalStatus }),
+      body: JSON.stringify({ reply: atlasReply, status: finalStatus }),
     });
 
     if (!replyRes.ok) {
@@ -124,15 +120,14 @@ async function processItem(item: WebhookItem): Promise<void> {
 
 async function main(): Promise<void> {
   console.log("════════════════════════════════════════");
-  console.log("  Hermes Local Poller");
+  console.log("  Atlas Local Poller");
   console.log(`  Railway : ${RAILWAY_URL}`);
-  console.log(`  Hermes  : ${HERMES_URL}`);
-  console.log(`  Route   : ${HERMES_ROUTE}`);
+  console.log(`  Atlas   : ${ATLAS_URL}`);
+  console.log(`  Route   : ${ATLAS_ROUTE}`);
   console.log(`  Interval: ${POLL_INTERVAL_MS}ms`);
   console.log("════════════════════════════════════════");
   console.log("  Polling started. Press Ctrl+C to stop.\n");
 
-  // Run immediately on start, then on interval
   await pollOnce();
 
   setInterval(() => {
