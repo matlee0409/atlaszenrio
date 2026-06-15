@@ -1,5 +1,0 @@
-[phases.build]
-cmds = []
-
-[start]
-cmd = "echo 'ERROR: @workspace/db is a shared library, not a deployable service. Deploy @workspace/api-server instead.' && exit 1"

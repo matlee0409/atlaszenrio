@@ -1,6 +1,6 @@
 import { Router, type IRouter, type Request, type Response } from "express";
 import crypto from "crypto";
-import { db, webhookQueueTable } from "@workspace/db";
+import { db, webhookQueueTable } from "../db/index.js";
 import { eq } from "drizzle-orm";
 
 const router: IRouter = Router();
