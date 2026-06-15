@@ -1,0 +1,81 @@
+2026-06-15T00:41:01.384445183Z [info] Starting Container
+2026-06-15T00:41:02.217623606Z [error]   throw new Error(
+2026-06-15T00:41:02.217631682Z [error]         ^
+2026-06-15T00:41:02.217636788Z [error] 
+2026-06-15T00:41:02.217641116Z [error] 
+2026-06-15T00:41:02.217644556Z [error] Error: DATABASE_URL must be set. Did you forget to provision a database?
+2026-06-15T00:41:02.217647951Z [error]     at <anonymous> (/app/artifacts/api-server/src/db/index.ts:8:9)
+2026-06-15T00:41:02.217651351Z [error]     at ModuleJob.run (node:internal/modules/esm/module_job:195:25)
+2026-06-15T00:41:02.217654600Z [error]     at async ModuleLoader.import (node:internal/modules/esm/loader:337:24)
+2026-06-15T00:41:02.217658385Z [error]     at async loadESM (node:internal/process/esm_loader:34:7)
+2026-06-15T00:41:02.217662108Z [error]     at async handleMainPromise (node:internal/modules/run_main:106:12)
+2026-06-15T00:41:02.217665617Z [error] 
+2026-06-15T00:41:02.217670260Z [error] Node.js v18.20.5
+2026-06-15T00:41:02.217674838Z [info] /app/artifacts/api-server:
+2026-06-15T00:41:02.217678871Z [info]  ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/api-server@0.0.0 start: `node --enable-source-maps ./dist/index.mjs`
+2026-06-15T00:41:02.217682577Z [info] Exit status 1
+2026-06-15T00:41:02.217686115Z [info] 
+2026-06-15T00:41:02.217689289Z [info] > @workspace/api-server@0.0.0 start /app/artifacts/api-server
+2026-06-15T00:41:02.217691957Z [info] > node --enable-source-maps ./dist/index.mjs
+2026-06-15T00:41:02.217694964Z [info] 
+2026-06-15T00:41:02.217697957Z [error] /app/artifacts/api-server/src/db/index.ts:8
+2026-06-15T00:41:03.214005919Z [info] 
+2026-06-15T00:41:03.214009679Z [info] > @workspace/api-server@0.0.0 start /app/artifacts/api-server
+2026-06-15T00:41:03.214013559Z [info] > node --enable-source-maps ./dist/index.mjs
+2026-06-15T00:41:03.214016939Z [info] 
+2026-06-15T00:41:03.331171795Z [error] /app/artifacts/api-server/src/db/index.ts:8
+2026-06-15T00:41:03.331178207Z [error]   throw new Error(
+2026-06-15T00:41:03.331184543Z [error]         ^
+2026-06-15T00:41:03.331189532Z [error] 
+2026-06-15T00:41:03.331195297Z [error] 
+2026-06-15T00:41:03.331199797Z [error] Error: DATABASE_URL must be set. Did you forget to provision a database?
+2026-06-15T00:41:03.331205283Z [error]     at <anonymous> (/app/artifacts/api-server/src/db/index.ts:8:9)
+2026-06-15T00:41:03.331209787Z [error]     at ModuleJob.run (node:internal/modules/esm/module_job:195:25)
+2026-06-15T00:41:03.331214346Z [error]     at async ModuleLoader.import (node:internal/modules/esm/loader:337:24)
+2026-06-15T00:41:03.331218940Z [error]     at async loadESM (node:internal/process/esm_loader:34:7)
+2026-06-15T00:41:03.331228677Z [error]     at async handleMainPromise (node:internal/modules/run_main:106:12)
+2026-06-15T00:41:03.331232805Z [error] 
+2026-06-15T00:41:03.331237446Z [error] Node.js v18.20.5
+2026-06-15T00:41:03.344175965Z [info] /app/artifacts/api-server:
+2026-06-15T00:41:03.344180634Z [info]  ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/api-server@0.0.0 start: `node --enable-source-maps ./dist/index.mjs`
+2026-06-15T00:41:03.344183828Z [info] Exit status 1
+2026-06-15T00:41:04.521314159Z [info] 
+2026-06-15T00:41:04.521317734Z [info] > @workspace/api-server@0.0.0 start /app/artifacts/api-server
+2026-06-15T00:41:04.521321643Z [info] > node --enable-source-maps ./dist/index.mjs
+2026-06-15T00:41:04.521325043Z [info] 
+2026-06-15T00:41:04.770718299Z [error] /app/artifacts/api-server/src/db/index.ts:8
+2026-06-15T00:41:04.770724787Z [error]   throw new Error(
+2026-06-15T00:41:04.770730346Z [error]         ^
+2026-06-15T00:41:04.770736055Z [error] 
+2026-06-15T00:41:04.770741251Z [error] 
+2026-06-15T00:41:04.770746082Z [error] Error: DATABASE_URL must be set. Did you forget to provision a database?
+2026-06-15T00:41:04.770750888Z [error]     at <anonymous> (/app/artifacts/api-server/src/db/index.ts:8:9)
+2026-06-15T00:41:04.770756292Z [error]     at ModuleJob.run (node:internal/modules/esm/module_job:195:25)
+2026-06-15T00:41:04.770762243Z [error]     at async ModuleLoader.import (node:internal/modules/esm/loader:337:24)
+2026-06-15T00:41:04.770767995Z [error]     at async loadESM (node:internal/process/esm_loader:34:7)
+2026-06-15T00:41:04.770773053Z [error]     at async handleMainPromise (node:internal/modules/run_main:106:12)
+2026-06-15T00:41:04.770778562Z [error] 
+2026-06-15T00:41:04.770783799Z [error] Node.js v18.20.5
+2026-06-15T00:41:04.787278834Z [info] /app/artifacts/api-server:
+2026-06-15T00:41:04.787284308Z [info]  ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/api-server@0.0.0 start: `node --enable-source-maps ./dist/index.mjs`
+2026-06-15T00:41:04.787288039Z [info] Exit status 1
+2026-06-15T00:41:06.216251200Z [info] 
+2026-06-15T00:41:06.216258824Z [info] > @workspace/api-server@0.0.0 start /app/artifacts/api-server
+2026-06-15T00:41:06.216262600Z [info] > node --enable-source-maps ./dist/index.mjs
+2026-06-15T00:41:06.216265528Z [info] 
+2026-06-15T00:41:06.252274587Z [error]     at async ModuleLoader.import (node:internal/modules/esm/loader:337:24)
+2026-06-15T00:41:06.252280919Z [error]     at async loadESM (node:internal/process/esm_loader:34:7)
+2026-06-15T00:41:06.252284935Z [error]     at async handleMainPromise (node:internal/modules/run_main:106:12)
+2026-06-15T00:41:06.252288397Z [error] 
+2026-06-15T00:41:06.252291960Z [error] Node.js v18.20.5
+2026-06-15T00:41:06.252314987Z [error] /app/artifacts/api-server/src/db/index.ts:8
+2026-06-15T00:41:06.252318228Z [error]   throw new Error(
+2026-06-15T00:41:06.252321446Z [error]         ^
+2026-06-15T00:41:06.252324699Z [error] 
+2026-06-15T00:41:06.252328172Z [error] 
+2026-06-15T00:41:06.252331133Z [error] Error: DATABASE_URL must be set. Did you forget to provision a database?
+2026-06-15T00:41:06.252333845Z [error]     at <anonymous> (/app/artifacts/api-server/src/db/index.ts:8:9)
+2026-06-15T00:41:06.252338164Z [error]     at ModuleJob.run (node:internal/modules/esm/module_job:195:25)
+2026-06-15T00:41:06.279237794Z [info] /app/artifacts/api-server:
+2026-06-15T00:41:06.279242897Z [info]  ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @workspace/api-server@0.0.0 start: `node --enable-source-maps ./dist/index.mjs`
+2026-06-15T00:41:06.279246612Z [info] Exit status 1
