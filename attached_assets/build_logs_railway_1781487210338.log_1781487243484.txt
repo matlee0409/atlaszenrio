@@ -1,0 +1,83 @@
+2026-06-15T01:32:33.147721393Z [info] scheduling build on Metal builder "production-builderv3-us-west1-9x7b"
+2026-06-15T01:32:33.954267004Z [info] uploading snapshot
+2026-06-15T01:32:34.718074554Z [info] fetched snapshot sha256:02541872fbfc913f1df37b7b56f14bdfd45e8381a614b011251fa1252713832c (1.2 MB bytes)
+2026-06-15T01:32:34.718146151Z [info] fetching snapshot
+2026-06-15T01:32:34.785940864Z [info] modified file: artifacts/api-server/src/db/schema/index.ts (33b -> 66b)
+2026-06-15T01:32:34.846753575Z [info] unpacking archive
+2026-06-15T01:32:34.905719125Z [info] using build driver nixpacks-v1.41.0
+2026-06-15T01:32:34.964914995Z [info] 
+2026-06-15T01:32:34.964917220Z [info] ╔═════════════════════════════ Nixpacks v1.41.0 ═════════════════════════════╗
+2026-06-15T01:32:34.964917840Z [info] ║ setup      │ nodejs_18, pnpm-10_x, openssl                                 ║
+2026-06-15T01:32:34.964919961Z [info] ║────────────────────────────────────────────────────────────────────────────║
+2026-06-15T01:32:34.964920530Z [info] ║ install    │ npm install -g corepack@0.24.1 && corepack enable             ║
+2026-06-15T01:32:34.964921017Z [info] ║            │ pnpm i --frozen-lockfile                                      ║
+2026-06-15T01:32:34.964921770Z [info] ║────────────────────────────────────────────────────────────────────────────║
+2026-06-15T01:32:34.964922240Z [info] ║ build      │ pnpm install && pnpm --filter @workspace/api-server run build ║
+2026-06-15T01:32:34.964922991Z [info] ║────────────────────────────────────────────────────────────────────────────║
+2026-06-15T01:32:34.964923435Z [info] ║ start      │ pnpm --filter @workspace/api-server run start                 ║
+2026-06-15T01:32:34.964924177Z [info] ╚════════════════════════════════════════════════════════════════════════════╝
+2026-06-15T01:32:34.964924536Z [info] 
+2026-06-15T01:32:34.965377794Z [info] 
+2026-06-15T01:32:34.965379928Z [info] Saved output to:
+2026-06-15T01:32:34.965380735Z [info]   snapshot-target-unpack
+2026-06-15T01:32:35.023749770Z [info] [internal] load build definition from Dockerfile
+2026-06-15T01:32:35.023750821Z [info] [internal] load build definition from Dockerfile
+2026-06-15T01:32:35.024555222Z [info] [internal] load build definition from Dockerfile
+2026-06-15T01:32:35.061817988Z [info] [internal] load build definition from Dockerfile
+2026-06-15T01:32:35.071897468Z [info] [internal] load metadata for ghcr.io/railwayapp/nixpacks:ubuntu-1745885067
+2026-06-15T01:32:35.185427593Z [info] [internal] load metadata for ghcr.io/railwayapp/nixpacks:ubuntu-1745885067
+2026-06-15T01:32:35.185785700Z [info] [internal] load .dockerignore
+2026-06-15T01:32:35.185947517Z [info] [internal] load .dockerignore
+2026-06-15T01:32:35.186976369Z [info] [internal] load .dockerignore
+2026-06-15T01:32:35.215278838Z [info] [internal] load .dockerignore
+2026-06-15T01:32:35.223275722Z [warn] SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ARG "POLL_API_KEY") (line 11)(https://docs.docker.com/go/dockerfile/rule/secrets-used-in-arg-or-env/)
+ details: Sensitive data should not be used in the ARG or ENV commands
+
+2026-06-15T01:32:35.224191605Z [warn] SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ENV "POLL_API_KEY") (line 12)(https://docs.docker.com/go/dockerfile/rule/secrets-used-in-arg-or-env/)
+ details: Sensitive data should not be used in the ARG or ENV commands
+
+2026-06-15T01:32:35.224214739Z [warn] UndefinedVar: Usage of undefined variable '$NIXPACKS_PATH' (line 18)(https://docs.docker.com/go/dockerfile/rule/undefined-var/)
+ details: Variables should be defined before their use
+
+2026-06-15T01:32:35.228201378Z [info] [stage-0  8/11] COPY . /app/.
+2026-06-15T01:32:35.228202494Z [info] [stage-0  7/11] RUN --mount=type=cache,id=s/0b76c59a-00aa-490e-9951-cdf3e9022c37-/root/local/share/pnpm/store/v3,target=/root/.local/share/pnpm/store/v3 pnpm i --frozen-lockfile
+2026-06-15T01:32:35.228203270Z [info] [stage-0  6/11] RUN --mount=type=cache,id=s/0b76c59a-00aa-490e-9951-cdf3e9022c37-/root/local/share/pnpm/store/v3,target=/root/.local/share/pnpm/store/v3 npm install -g corepack@0.24.1 && corepack enable
+2026-06-15T01:32:35.228203885Z [info] [stage-0 10/11] RUN printf '\nPATH=/app/node_modules/.bin:$PATH' >> /root/.profile
+2026-06-15T01:32:35.228204448Z [info] [stage-0  4/11] RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d
+2026-06-15T01:32:35.228205133Z [info] [stage-0  3/11] COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix
+2026-06-15T01:32:35.228205813Z [info] [internal] load build context
+2026-06-15T01:32:35.228206217Z [info] [stage-0  2/10] WORKDIR /app/
+2026-06-15T01:32:35.228207077Z [info] [stage-0 11/11] COPY . /app
+2026-06-15T01:32:35.228207731Z [info] [stage-0  9/11] RUN --mount=type=cache,id=s/0b76c59a-00aa-490e-9951-cdf3e9022c37-node_modules/cache,target=/app/node_modules/.cache pnpm install && pnpm --filter @workspace/api-server run build
+2026-06-15T01:32:35.228208260Z [info] [stage-0  5/11] COPY . /app/.
+2026-06-15T01:32:35.228208772Z [info] [stage-0  1/10] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de
+2026-06-15T01:32:35.228209371Z [info] [stage-0  1/10] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de
+2026-06-15T01:32:35.228229293Z [info] [internal] load build context
+2026-06-15T01:32:35.235278101Z [info] [internal] load build context
+2026-06-15T01:32:35.285912157Z [info] [internal] load build context
+2026-06-15T01:32:35.304056730Z [info] [stage-0  2/10] WORKDIR /app/
+2026-06-15T01:32:35.304057663Z [info] [stage-0  3/11] COPY .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix
+2026-06-15T01:32:35.304058078Z [info] [stage-0  4/11] RUN nix-env -if .nixpacks/nixpkgs-ffeebf0acf3ae8b29f8c7049cd911b9636efd7e7.nix && nix-collect-garbage -d
+2026-06-15T01:32:35.304080956Z [info] [stage-0  5/11] COPY . /app/.
+2026-06-15T01:32:35.704031337Z [info] [stage-0  5/11] COPY . /app/.
+2026-06-15T01:32:35.719669177Z [info] [stage-0  6/11] RUN --mount=type=cache,id=s/0b76c59a-00aa-490e-9951-cdf3e9022c37-/root/local/share/pnpm/store/v3,target=/root/.local/share/pnpm/store/v3 npm install -g corepack@0.24.1 && corepack enable
+2026-06-15T01:32:36.550468644Z [info] npm warn config production Use `--omit=dev` instead.
+
+2026-06-15T01:32:37.652850312Z [info] 
+changed 1 package in 1s
+
+2026-06-15T01:32:37.780165292Z [info] [stage-0  6/11] RUN --mount=type=cache,id=s/0b76c59a-00aa-490e-9951-cdf3e9022c37-/root/local/share/pnpm/store/v3,target=/root/.local/share/pnpm/store/v3 npm install -g corepack@0.24.1 && corepack enable
+2026-06-15T01:32:37.788924592Z [info] [stage-0  7/11] RUN --mount=type=cache,id=s/0b76c59a-00aa-490e-9951-cdf3e9022c37-/root/local/share/pnpm/store/v3,target=/root/.local/share/pnpm/store/v3 pnpm i --frozen-lockfile
+2026-06-15T01:32:39.204682244Z [info] Scope: all 4 workspace projects
+
+2026-06-15T01:32:39.327822197Z [info]  ERR_PNPM_OUTDATED_LOCKFILE  Cannot install with "frozen-lockfile" because pnpm-lock.yaml is not up to date with <ROOT>/artifacts/dashboard/package.json
+
+Note that in CI environments this setting is true by default. If you still need to run install in such cases, use "pnpm install --no-frozen-lockfile"
+
+  Failure reason:
+  specifiers in the lockfile don't match specifiers in package.json:
+* 63 dependencies were added: @hookform/resolvers@^3.10.0, @radix-ui/react-accordion@^1.2.4, @radix-ui/react-alert-dialog@^1.1.7, @radix-ui/react-aspect-ratio@^1.1.3, @radix-ui/react-avatar@^1.1.4, @radix-ui/react-checkbox@^1.1.5, @radix-ui/react-collapsible@^1.1.4, @radix-ui/react-context-menu@^2.2.7, @radix-ui/react-dialog@^1.1.7, @radix-ui/react-dropdown-menu@^2.1.7, @radix-ui/react-hover-card@^1.1.7, @radix-ui/react-label@^2.1.3, @radix-ui/react-menubar@^1.1.7, @radix-ui/react-navigation-menu@^1.2.6, @radix-ui/react-popover@^1.1.7, @radix-ui/react-progress@^1.1.3, @radix-ui/react-radio-group@^1.2.4, @radix-ui/react-scroll-area@^1.2.4, @radix-ui/react-select@^2.1.7, @radix-ui/react-separator@^1.1.3, @radix-ui/react-slider@^1.2.4, @radix-ui/react-slot@^1.2.0, @radix-ui/react-switch@^1.1.4, @radix-ui/react-tabs@^1.1.4, @radix-ui/react-toast@^1.2.7, @radix-ui/react-toggle@^1.1.3, @radix-ui/react-toggle-group@^1.1.3, @radix-ui/react-tooltip@^1.2.0, @replit/vite-plugin-cartographer@catalog:, @replit/vite-plugin-dev-banner@catalog:, @replit/vite-plugin-runtime-error-modal@catalog:, @tailwindcss/typography@^0.5.15, @tailwindcss/vite@catalog:, @tanstack/react-query@catalog:, @types/node@catalog:, @types/react@catalog:, @types/react-dom@catalog:, @vitejs/plugin-react@catalog:, @workspace/api-client-react@workspace:*, class-variance-authority@catalog:, clsx@catalog:, cmdk@^1.1.1, date-fns@^3.6.0, embla-carousel-react@^8.6.0, framer-motion@catalog:, input-otp@^1.4.2, lucide-react@catalog:, next-themes@^0.4.6, react@catalog:, react-day-picker@^9.11.1, react-dom@catalog:, react-hook-form@^7.55.0, react-icons@^5.4.0, react-resizable-panels@^2.1.7, recharts@^2.15.2, sonner@^2.0.7, tailwind-merge@catalog:, tailwindcss@catalog:, tw-animate-css@^1.4.0, vaul@^1.1.2, vite@catalog:, wouter@^3.3.5, zod@catalog:
+
+
+2026-06-15T01:32:39.580082722Z [error] [stage-0  7/11] RUN --mount=type=cache,id=s/0b76c59a-00aa-490e-9951-cdf3e9022c37-/root/local/share/pnpm/store/v3,target=/root/.local/share/pnpm/store/v3 pnpm i --frozen-lockfile
+2026-06-15T01:32:39.623126352Z [error] Build Failed: build daemon returned an error < failed to solve: process "/bin/bash -ol pipefail -c pnpm i --frozen-lockfile" did not complete successfully: exit code: 1 >
