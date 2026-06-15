@@ -29,22 +29,33 @@ app.listen(port, (err) => {
       : `http://localhost:${port}`;
 
   const webhookUrl = `${host}/api/webhooks/zernio`;
-  const signingSecret = process.env.ZERNIO_WEBHOOK_SECRET ?? "(not set)";
-  const pollApiKey = process.env.POLL_API_KEY ?? "(not set)";
-  const agentId = process.env.ATLAS_AGENT_ID ?? "(not set)";
+  const signingSecret = process.env.ZERNIO_WEBHOOK_SECRET;
+  const pollApiKey = process.env.POLL_API_KEY;
+  const agentId = process.env.ATLAS_AGENT_ID;
+
+  const missing: string[] = [];
+  if (!signingSecret) missing.push("ZERNIO_WEBHOOK_SECRET");
+  if (!pollApiKey) missing.push("POLL_API_KEY");
+  if (!agentId) missing.push("ATLAS_AGENT_ID");
 
   console.log(`
 ╔══════════════════════════════════════════════════════╗
 ║              Webhook Configuration                   ║
 ╠══════════════════════════════════════════════════════╣
 ║ Webhook URL    : ${webhookUrl.padEnd(34)}║
-║ Signing Secret : ${signingSecret.padEnd(34)}║
-║ Events         : ${"post.published, post.failed, post.partial".padEnd(34)}║
+║ Signing Secret : ${(signingSecret ? "✓ set" : "✗ NOT SET — webhooks will be rejected").padEnd(34)}║
+║ Events         : ${"message.received, comment.received".padEnd(34)}║
 ╠══════════════════════════════════════════════════════╣
 ║              Atlas Poll Configuration                ║
 ╠══════════════════════════════════════════════════════╣
-║ Poll API Key   : ${pollApiKey.padEnd(34)}║
-║ Agent ID       : ${agentId.padEnd(34)}║
+║ Poll API Key   : ${(pollApiKey ? "✓ set" : "✗ NOT SET — poll endpoint locked out").padEnd(34)}║
+║ Agent ID       : ${(agentId ? "✓ set" : "✗ NOT SET — poll endpoint locked out").padEnd(34)}║
 ╚══════════════════════════════════════════════════════╝
 `);
+
+  if (missing.length > 0) {
+    console.warn(`⚠️  Missing environment variables on Railway: ${missing.join(", ")}`);
+    console.warn("   Set them in Railway → Variables, then redeploy.");
+    console.warn("   Generate values with: openssl rand -hex 32");
+  }
 });

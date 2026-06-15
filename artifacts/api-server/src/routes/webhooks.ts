@@ -53,21 +53,33 @@ function verifyAtlasAuth(req: Request): { ok: boolean; error?: string } {
 
 router.post("/webhooks/zernio", async (req: Request, res: Response) => {
   const secret = process.env.ZERNIO_WEBHOOK_SECRET;
+
+  if (!secret) {
+    res.status(503).json({
+      error: "Signing secret not configured",
+      fix: "Set the ZERNIO_WEBHOOK_SECRET environment variable on Railway.",
+    });
+    return;
+  }
+
   const rawBody = (req as any).rawBody as string ?? JSON.stringify(req.body);
   const signature =
     (req.headers["x-zernio-signature"] ?? req.headers["x-late-signature"]) as string | undefined;
 
-  if (secret && signature) {
-    try {
-      const valid = verifyZernioSignature(rawBody, signature, secret);
-      if (!valid) {
-        res.status(401).json({ error: "Invalid signature" });
-        return;
-      }
-    } catch {
-      res.status(401).json({ error: "Signature verification failed" });
+  if (!signature) {
+    res.status(401).json({ error: "Missing X-Zernio-Signature header" });
+    return;
+  }
+
+  try {
+    const valid = verifyZernioSignature(rawBody, signature, secret);
+    if (!valid) {
+      res.status(401).json({ error: "Invalid signature" });
       return;
     }
+  } catch {
+    res.status(401).json({ error: "Signature verification failed" });
+    return;
   }
 
   const [item] = await db
