@@ -1,0 +1,2 @@
+# This package is a shared library — it is not a deployable service.
+# Deploy @workspace/api-server instead.
