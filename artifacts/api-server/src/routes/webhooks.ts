@@ -53,8 +53,9 @@ function verifyAtlasAuth(req: Request): { ok: boolean; error?: string } {
 
 router.post("/webhooks/zernio", async (req: Request, res: Response) => {
   const secret = process.env.ZERNIO_WEBHOOK_SECRET;
-  const rawBody = JSON.stringify(req.body);
-  const signature = req.headers["x-zernio-signature"] as string | undefined;
+  const rawBody = (req as any).rawBody as string ?? JSON.stringify(req.body);
+  const signature =
+    (req.headers["x-zernio-signature"] ?? req.headers["x-late-signature"]) as string | undefined;
 
   if (secret && signature) {
     try {

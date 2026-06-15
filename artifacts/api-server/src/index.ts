@@ -39,7 +39,7 @@ app.listen(port, (err) => {
 ╠══════════════════════════════════════════════════════╣
 ║ Webhook URL    : ${webhookUrl.padEnd(34)}║
 ║ Signing Secret : ${signingSecret.padEnd(34)}║
-║ Events         : ${"message.received, comment.received".padEnd(34)}║
+║ Events         : ${"post.published, post.failed, post.partial".padEnd(34)}║
 ╠══════════════════════════════════════════════════════╣
 ║              Atlas Poll Configuration                ║
 ╠══════════════════════════════════════════════════════╣
