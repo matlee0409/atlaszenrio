@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { db } from "../db/index.js";
+import { db, pool } from "../db/index.js";
 import { serverConfigTable } from "../db/schema/server_config.js";
 import { eq } from "drizzle-orm";
 
@@ -13,7 +13,7 @@ export async function getOrCreateSigningSecret(): Promise<string> {
     return _signingSecret;
   }
 
-  await db.execute(`
+  await pool.query(`
     CREATE TABLE IF NOT EXISTS server_config (
       key TEXT PRIMARY KEY,
       value TEXT NOT NULL,
