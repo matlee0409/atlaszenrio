@@ -82,17 +82,22 @@ router.post("/webhooks/zernio", async (req: Request, res: Response) => {
     return;
   }
 
-  const [item] = await db
-    .insert(webhookQueueTable)
-    .values({
-      source: "zernio",
-      payload: rawBody,
-      signature: signature ?? null,
-      status: "pending",
-    })
-    .returning();
+  try {
+    const [item] = await db
+      .insert(webhookQueueTable)
+      .values({
+        source: "zernio",
+        payload: rawBody,
+        signature: signature ?? null,
+        status: "pending",
+      })
+      .returning();
 
-  res.status(202).json({ queued: true, id: item.id });
+    res.status(202).json({ queued: true, id: item.id });
+  } catch (err) {
+    console.error("DB insert failed:", err);
+    res.status(500).json({ error: "Failed to queue webhook", detail: String(err) });
+  }
 });
 
 router.get("/webhooks/poll", async (req: Request, res: Response) => {
