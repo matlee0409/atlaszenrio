@@ -2,6 +2,7 @@ import { Router, type IRouter, type Request, type Response } from "express";
 import crypto from "crypto";
 import { db, webhookQueueTable } from "../db/index.js";
 import { eq } from "drizzle-orm";
+import { getSigningSecret } from "../lib/secrets.js";
 
 const router: IRouter = Router();
 
@@ -52,12 +53,11 @@ function verifyAtlasAuth(req: Request): { ok: boolean; error?: string } {
 }
 
 router.post("/webhooks/zernio", async (req: Request, res: Response) => {
-  const secret = process.env.ZERNIO_WEBHOOK_SECRET;
+  const secret = getSigningSecret();
 
   if (!secret) {
     res.status(503).json({
-      error: "Signing secret not configured",
-      fix: "Set the ZERNIO_WEBHOOK_SECRET environment variable on Railway.",
+      error: "Server still initializing — signing secret not ready yet.",
     });
     return;
   }
