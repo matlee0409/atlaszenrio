@@ -22,4 +22,29 @@ app.listen(port, (err) => {
   }
 
   logger.info({ port }, "Server listening");
+
+  const host =
+    process.env.RAILWAY_PUBLIC_DOMAIN
+      ? `https://${process.env.RAILWAY_PUBLIC_DOMAIN}`
+      : `http://localhost:${port}`;
+
+  const webhookUrl = `${host}/api/webhooks/zernio`;
+  const signingSecret = process.env.ZERNIO_WEBHOOK_SECRET ?? "(not set)";
+  const pollApiKey = process.env.POLL_API_KEY ?? "(not set)";
+  const agentId = process.env.ATLAS_AGENT_ID ?? "(not set)";
+
+  console.log(`
+╔══════════════════════════════════════════════════════╗
+║              Webhook Configuration                   ║
+╠══════════════════════════════════════════════════════╣
+║ Webhook URL    : ${webhookUrl.padEnd(34)}║
+║ Signing Secret : ${signingSecret.padEnd(34)}║
+║ Events         : ${"message.received, comment.received".padEnd(34)}║
+╠══════════════════════════════════════════════════════╣
+║              Atlas Poll Configuration                ║
+╠══════════════════════════════════════════════════════╣
+║ Poll API Key   : ${pollApiKey.padEnd(34)}║
+║ Agent ID       : ${agentId.padEnd(34)}║
+╚══════════════════════════════════════════════════════╝
+`);
 });
